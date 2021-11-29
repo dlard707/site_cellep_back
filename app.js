@@ -30,6 +30,11 @@ app.get('/noticias', (req, res) => {
   res.render('noticias/noticias', {noticias: noticias});
 });
 
+//Rota responsável pelo recurso Admin
+app.get('/admin', (req, res) => {
+  res.render('admin/login', {title: 'Login'});
+})
+
 
 app.listen(3000,()=>{
     console.log('Escutando na porta 3000 com express')
