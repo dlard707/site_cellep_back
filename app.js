@@ -1,6 +1,13 @@
 const express = require('express');
+const session = require('express-session');
+
 // importação modulo express 
 const app = express();
+
+//Configuração de jsonparse e bodyparse
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 //Configuração EJS
 app.set('view engine', 'ejs');
@@ -8,6 +15,13 @@ app.set('view engine', 'ejs');
 app.set('views', './app/views');
 //Configuração arquivos estáticos
 app.use(express.static('./app/public'));
+
+app.use(session({
+  secret:'bjs?fFyY75=f53:s',
+  resave: false,
+  saveUninitialized: false
+}));
+
 //Importação do Mockup
 const noticias = require('./mockup')
 
@@ -33,6 +47,30 @@ app.get('/noticias', (req, res) => {
 //Rota responsável pelo recurso Admin
 app.get('/admin', (req, res) => {
   res.render('admin/login', {title: 'Login'});
+  // res.render('admin/from_add_noticia')
+})
+
+//rota responsável pela autenticação do usuário
+app.post('/admin/autenticar', (req, res) => {
+
+  const [usuario, senha] = req.body
+
+  if(usuario === 'root' && senha === 'cellep1234'){
+    req.session.autorizado = true   
+  }
+  res.redirect('/admin');
+})
+
+//Rota respponsável pela saida do usuário
+app.get('/admin/sair', (req, res) => {
+
+  req.session.destroy((err) => {
+
+    res.redirect('/admin')
+
+  })
+ 
+
 })
 
 
