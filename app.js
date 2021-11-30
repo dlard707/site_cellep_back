@@ -1,26 +1,5 @@
-const express = require('express');
-const session = require('express-session');
 
-// importação modulo express 
-const app = express();
-
-//Configuração de jsonparse e bodyparse
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
-//Configuração EJS
-app.set('view engine', 'ejs');
-//definindo o caminho do ejs
-app.set('views', './app/views');
-//Configuração arquivos estáticos
-app.use(express.static('./app/public'));
-
-app.use(session({
-  secret:'bjs?fFyY75=f53:s',
-  resave: false,
-  saveUninitialized: false
-}));
+const app = require('./config/server');
 
 //Importação do Mockup
 const noticias = require('./mockup')
@@ -46,12 +25,12 @@ app.get('/noticias', (req, res) => {
 
 //Rota responsável pelo recurso Admin
 app.get('/admin', (req, res) => {
-  // if(req.session.autorizado){
-  //   res.render('admin/form_add_noticia', {title:'Admin', autorizado:req.session.autorizado})
-  // }else{
+   if(req.session.autorizado){
+    res.render('admin/form_add_noticia', {title:'Admin', autorizado:req.session.autorizado})
+  }else{
      res.render('admin/login', {title: 'Login'});
   
-  // }
+   }
   
 })
 
