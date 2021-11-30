@@ -46,8 +46,13 @@ app.get('/noticias', (req, res) => {
 
 //Rota responsável pelo recurso Admin
 app.get('/admin', (req, res) => {
-  res.render('admin/login', {title: 'Login'});
-  // res.render('admin/from_add_noticia')
+  if(req.session.autorizado){
+    res.render('admin/form_add_noticia', {title:'Admin', autorizado:req.session.autorizado})
+  }else{
+    res.render('admin/login', {title: 'Login'});
+  
+  }
+  
 })
 
 //rota responsável pela autenticação do usuário
