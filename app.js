@@ -46,12 +46,12 @@ app.get('/noticias', (req, res) => {
 
 //Rota responsável pelo recurso Admin
 app.get('/admin', (req, res) => {
-  if(req.session.autorizado){
-    res.render('admin/form_add_noticia', {title:'Admin', autorizado:req.session.autorizado})
-  }else{
-    res.render('admin/login', {title: 'Login'});
+  // if(req.session.autorizado){
+  //   res.render('admin/form_add_noticia', {title:'Admin', autorizado:req.session.autorizado})
+  // }else{
+     res.render('admin/login', {title: 'Login'});
   
-  }
+  // }
   
 })
 
