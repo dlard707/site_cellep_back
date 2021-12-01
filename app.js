@@ -94,4 +94,5 @@ app.get('/admin/sair', (req, res) => {
 
 app.listen(port, () => {
     console.log('Servidor rodando com Express')
+    console.log('pressione Ctrl + C para derrubar o servidor')
 })
